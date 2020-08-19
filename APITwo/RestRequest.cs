@@ -30,29 +30,23 @@ namespace APITwo
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-                try
-                {
 
-                    using (HttpResponseMessage response = await client.GetAsync(url))
+                using (HttpResponseMessage response = await client.GetAsync(url))
+                {
+                    using (HttpContent content = response.Content)
                     {
-                        using (HttpContent content = response.Content)
+                        if (response.IsSuccessStatusCode)
                         {
-                            if (response.IsSuccessStatusCode)
-                            {
-                                string mycontent = await content.ReadAsStringAsync();
-                                HttpContentHeaders headers = content.Headers;
-                                var myObject = JObject.Parse(mycontent);
-                                Juros = Convert.ToDouble(myObject.SelectToken(".juros"));
-                            }
-                            else
-                            {
-                                GetJurosError = true;
-                            }
+                            string mycontent = await content.ReadAsStringAsync();
+                            HttpContentHeaders headers = content.Headers;
+                            var myObject = JObject.Parse(mycontent);
+                            Juros = Convert.ToDouble(myObject.SelectToken(".juros"));
+                        }
+                        else
+                        {
+                            GetJurosError = true;
                         }
                     }
-                }
-                catch
-                {
                 }
             }
         }
