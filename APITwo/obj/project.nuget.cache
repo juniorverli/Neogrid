@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FnewlykFasThKEE5a+3b/v6cS3zSTeMV++r2IXbAWhPRWJ7fSM7MewiMZw+sN00Yz7FJFbZMnZZduwR+vbXXag==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Junior\\OneDrive\\Dev\\NET\\Neogrid\\APITwo\\APITwo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Junior\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
