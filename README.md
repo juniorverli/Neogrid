@@ -1,34 +1,10 @@
-# Neogrid
- 
-DESAFIO TÉCNICO .NET – SISTEMAS INTERNOS
-O desafio consiste em você criar duas APIs na linguagem .NET, uma com dois endpoints e outra
-com um endpoint:
+# Neogrid - DESAFIO TÉCNICO .NET – SISTEMAS INTERNOS
 
-API 1
-1) Retornar taxa de juros
-Responde pelo path relativo "/taxaJuros"
-Retorna os juros de 1% ou 0,01 (fixo no código)
-Exemplo: /taxaJuros Resultado esperado: 0,01
+A APIOne é equivalente a API 1 responsável pela consulta da taxa de Juros que é retornado fixo 0.01
+Endereço: http://localhost:5001
+Para fazer a consulta de juros deve-se utilizar http://localhost:5001/taxaJuros e será retornado o JSON com o valor do juros
 
-API 2
-1) Calcula Juros
-Responde pelo path relativo "/calculajuros"
-Ela faz um cálculo em memória, de juros compostos, conforme abaixo:
-Valor Final = Valor Inicial * (1 + juros) ^ Tempo
-Valor inicial é um decimal recebido como parâmetro.
-Valor do Juros deve ser consultado na API 1.
-Tempo é um inteiro, que representa meses, também recebido como parâmetro.
-^ representa a operação de potência.
-Valor Final deve ser truncado (sem arredondamento) em duas casas decimais.
-Exemplo: /calculajuros?valorinicial=100&meses=5 Resultado esperado: 105,10
-
-2) Show me the code
-Este responde pelo path relativo /showmethecode Deverá retornar a url de onde
-encontra-se o fonte no github
-Esperamos que a entrega tenha
-
-=============================================================================
-
-1. Código fonte em .NET no github
-2. Publicar as APIs em um endereço Web (ESTA ENTREGA É OPCIONAL)
-3. Testes unitários (ESTA ENTREGA É OPCIONAL)
+A APITwo é equivalente a API 2 que realiza a consulta na API 1 referente ao valor de juros e depois realiza o Calculo do Juros compostos com base nas informações de valor inicial e da quantidade de meses através da Requisição REST. Também retorna a URL de onde encontra-se o código fonte do GitHub
+Endereço: http://localhost:5002/
+Para fazer a consulta de juros deve-se utilizar http://localhost:5002/calculajuros?valorinicial=100&meses=5 e será retornado o valor final no JSON
+Para fazer a consulta da URL onde encontra-se o fonte deve-se utilizar http://localhost:5002/showmethecode
