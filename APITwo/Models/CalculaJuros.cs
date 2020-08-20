@@ -7,6 +7,6 @@ namespace APITwo
 {
     public class CalculaJuros
     {
-        public string ValorFinal { get; set; }
+        public decimal ValorFinal { get; set; }
     }
 }

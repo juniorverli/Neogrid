@@ -11,34 +11,21 @@ using System.Threading.Tasks;
 namespace APITwo.Controllers
 {
 
-    public static class MyExtensionMethods
-    {
-        public static string toFixed(this decimal number, uint decimals)
-        {
-            return number.ToString("N" + decimals);
-        }
-    }
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
     public class calculajurosController : ControllerBase
     {
-        string url = "http://localhost:22178/taxaJuros";
+        private readonly string url = "http://localhost:5000/taxaJuros";
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<CalculaJuros> GetAsync(decimal valorinicial, int meses)
+        public async Task<ActionResult<CalculaJuros>> GetAsync(decimal valorinicial, int meses)
         {
-            await RestRequest.GetRequestJuros(url);
+            try{await RestRequest.GetRequestJuros(url);}catch (Exception) { return NotFound();}
             double juros = RestRequest.Juros;
-            var result = (valorinicial * (decimal)Math.Pow((1 + (double)juros), meses));
-            string valorfinal = result.toFixed(2);
-            Console.WriteLine("Calcula Juros Compostos\n" +
-            "Valor do Juros: " + juros +"\n" +
-            "Valor Inicial: " + valorinicial + "\n" +
-            "Quantidade de Meses: " + meses + "\n" +
-            "Valor Final: " + valorfinal + "\n");
-            return new CalculaJuros { ValorFinal = valorfinal };
+            var calc = (valorinicial * (decimal)Math.Pow((1 + (double)juros), meses));
+            decimal decimalRounded = Decimal.Parse(calc.ToString("0.00"));
+            var result = new CalculaJuros { ValorFinal = decimalRounded };
+            return Ok(result);
         }
     }
 }

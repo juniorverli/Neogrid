@@ -1,22 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace APIOne.Controllers
+namespace APITwo.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class taxaJurosController : ControllerBase
+    public class showmethecodeController : ControllerBase
     {
-        private readonly double jurosvalue = 0.01;
+        private readonly string pathcode = "https://github.com/juniorverli/Neogrid";
         [HttpGet]
-        public ActionResult <taxaJuros> Get()
+        public ActionResult <showmethecode> Get()
         {
-            var result = new taxaJuros { Juros = jurosvalue };
+            var result = new showmethecode { GitHub = pathcode };
             return Ok(result);
         }
     }

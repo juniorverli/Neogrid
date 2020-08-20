@@ -31,7 +31,7 @@ namespace APITwo
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
 
-                using (HttpResponseMessage response = await client.GetAsync(url))
+                using (HttpResponseMessage response =  await client.GetAsync(url))
                 {
                     using (HttpContent content = response.Content)
                     {
