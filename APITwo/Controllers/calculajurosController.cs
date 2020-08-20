@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,14 @@ namespace APITwo.Controllers
     public class calculajurosController : ControllerBase
     {
         private readonly string url = "http://localhost:5000/taxaJuros";
+
+        private readonly ILogger _logger;
+
+        public calculajurosController(ILogger<calculajurosController> logger)
+        {
+            _logger = logger;
+        }
+
         [HttpGet]
         public async Task<ActionResult<CalculaJuros>> GetAsync(decimal valorinicial, int meses)
         {
@@ -25,6 +34,9 @@ namespace APITwo.Controllers
             var calc = (valorinicial * (decimal)Math.Pow((1 + (double)juros), meses));
             decimal decimalRounded = Decimal.Parse(calc.ToString("0.00"));
             var result = new CalculaJuros { ValorFinal = decimalRounded };
+            var Message = "Calcula Juros Compostos = " +
+            $"Juros: {juros} | Valor Inicial: {valorinicial} | Meses: {meses} | Valor Final: {decimalRounded}";
+            _logger.LogInformation(Message);
             return Ok(result);
         }
     }
