@@ -19,6 +19,7 @@ namespace APITwo.Controllers
     {
         private readonly string url = "http://localhost:5000/taxaJuros";
 
+        
         private readonly ILogger _logger;
 
         public calculajurosController(ILogger<calculajurosController> logger)
@@ -29,13 +30,20 @@ namespace APITwo.Controllers
         [HttpGet]
         public async Task<ActionResult<CalculaJuros>> GetAsync(decimal valorinicial, int meses)
         {
-            try{await RestRequest.GetRequestJuros(url);}catch (Exception) { return NotFound();}
+            try
+            {
+                await RestRequest.GetRequestJuros(url);
+            }
+            catch (Exception)
+            {
+                _logger.LogError("Valor do juros nao encontrado");
+                return NotFound();
+            }
             double juros = RestRequest.Juros;
             var calc = (valorinicial * (decimal)Math.Pow((1 + (double)juros), meses));
             decimal decimalRounded = Decimal.Parse(calc.ToString("0.00"));
             var result = new CalculaJuros { ValorFinal = decimalRounded };
-            var Message = "Calcula Juros Compostos = " +
-            $"Juros: {juros} | Valor Inicial: {valorinicial} | Meses: {meses} | Valor Final: {decimalRounded}";
+            var Message = $"Calcula Juros Compostos: {valorinicial} * (1+{juros}) ^ {meses} = {decimalRounded}";
             _logger.LogInformation(Message);
             return Ok(result);
         }
